@@ -7,7 +7,6 @@ headers = {
 }
 def get_data_from_quizlet(url):
     id = url.split("quizlet.com/")[1].split("/")[0]
-
     try:
         api_url = "https://quizlet.com/webapi/3.4/studiable-item-documents?filters%5BstudiableContainerId%5D={}&filters%5BstudiableContainerType%5D=1&perPage=1000&page=1".format(id)
         itemsResponse = requests.get(api_url, verify=False, headers=headers)
