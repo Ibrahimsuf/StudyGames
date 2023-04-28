@@ -63,14 +63,11 @@ class Gameplay extends Phaser.Scene {
             .on('pointerdown', function () {
                 var config = {
                     onOpen: function (textObject) {
-                        console.log('Open text editor');
                     },
                     onTextChanged: function (textObject, text) {
                         textObject.text = text;
-                        console.log(`Text: ${text}`);
                     },
                     onClose: function (textObject) {
-                        console.log('Close text editor');
                     },
                     selectAll: true,
                     // enterClose: false
@@ -147,6 +144,7 @@ class GotItemWrong extends Phaser.Scene {
 
     create()
     {
+        console.log(items_missed_once_index)
         let background = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'background')
         let scaleX = this.cameras.main.width / background.width
         let scaleY = this.cameras.main.height / background.height
@@ -172,14 +170,11 @@ class GotItemWrong extends Phaser.Scene {
             .on('pointerdown', function () {
                 var config = {
                     onOpen: function (textObject) {
-                        console.log('Open text editor');
                     },
                     onTextChanged: function (textObject, text) {
                         textObject.text = text;
-                        console.log(`Text: ${text}`);
                     },
                     onClose: function (textObject) {
-                        console.log('Close text editor');
                     },
                     selectAll: true,
                     // enterClose: false
@@ -196,6 +191,7 @@ class GotItemWrong extends Phaser.Scene {
             {
                 //game over
                 console.log("game over")
+                this.text.text = "Game Over"
             }
             else
             {
@@ -233,10 +229,16 @@ function reset_asteroid(child, self) {
             child.x = Phaser.Math.Between(50, 750)
             child.y = 0
 
-            if(Phaser.Math.Between(0, 10) === 1)
+            if(Phaser.Math.Between(0, 4))
             {
                 //with 10% probability select random item from list of items that have already been missed once
-                child.term_number = items_missed_once_index[Phaser.Math.Between(0, items_missed_once_index.length - 1)] 
+                if (items_missed_once_index.length > 0) {
+                    child.term_number = items_missed_once_index[Phaser.Math.Between(0, items_missed_once_index.length - 1)] 
+                    console.log("Getting item missed once")
+                }
+                else {
+                    child.term_number = Phaser.Math.Between(0, num_terms - 1)
+                }
             }
             else
             {
